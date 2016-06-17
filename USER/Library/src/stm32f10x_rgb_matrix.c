@@ -4,32 +4,36 @@
   * @author  Makt
   * @version V1.0
   * @date    2016-04-04
-  * @brief   新的RGB 点阵显示 程序
+  * @brief   点阵显示屏功能函数库
   ******************************************************************************
   * @attention
   *
+	* rgb_matrix Library - Methods for interacting with background layer
+	*
+	* Permission is hereby granted, free of charge, to any person obtaining a copy of
+	* this software and associated documentation files (the "Software"), to deal in
+	* the Software without restriction, including without limitation the rights to
+	* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+	* the Software, and to permit persons to whom the Software is furnished to do so,
+	* subject to the following conditions:
+	*
+	* The above copyright notice and this permission notice shall be included in all
+	* copies or substantial portions of the Software.
+	*
+	* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+	* FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+	* COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+	* IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+	* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  *
+	*
+	*
+	* 显示算法在此文件中
   ******************************************************************************
   */
 /*
 
- * rgb_matrix Library - Methods for interacting with background layer
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
  
 #include "stm32f10x_rgb_matrix.h"
@@ -313,10 +317,10 @@ void Timer_Move_interrupt()
 }
 
 /**
- * Displays the buffer on the display using binary encoding (PWM equivalent).
- * 8 位灰度显示模式
- * Display_PWM[MATRIX_MODULE*MATRIX_HEIGHT*2][3] 为缓存
- */
+  * @brief  灰度显示主函数
+  * @param  None
+  * @retval None
+  */
 void display_PWM(void) {
 	u8 s;
 	u8 plane;
@@ -407,8 +411,10 @@ void display_PWM(void) {
 }
 
 /**
- * sets the row on the row gpio ports
- */
+  * @brief  sets the row on the row gpio ports
+  * @param  None
+  * @retval None
+  */
 void setRow(u8 row) {
 	// todo: perhaps a lookup table could give us a tiny boost here.
 
@@ -423,8 +429,10 @@ void setRow(u8 row) {
 }
 
 /**
- * loads rgb1 and rgb2 gpio ports with the given bitplane
- */
+  * @brief  loads rgb1 and rgb2 gpio ports with the given bitplane
+  * @param  None
+  * @retval None
+  */
 void setRGB(uint32_t rgb1, uint32_t rgb2, uint8_t plane) {
 	// using bitshifting seems to be faster due to gcc optimization
 	// than using a bitmask lookup table here.

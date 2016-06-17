@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
-  * @file    stm32f10x_rgb_init.h
-  * @author  MCD Application Team
+  * @file    stm32f10x_rgb_application.h
+  * @author  Makt
   * @version V3.5.0
   * @date    04-April-2016
   * @brief   STM32F10x_RGB_Appliction.h …œ≤„”¶”√
@@ -80,4 +80,4 @@ void Display_Demo(void);
 
 #endif /* __STM32F10x_RGB_APPLICTION_H */
 
-/******************* (C) COPYRIGHT 2011 Makt *****END OF FILE****/
+/******************* (C) COPYRIGHT 2011 Makt *****END OF FILE**********s**/

@@ -1,10 +1,10 @@
 /**
   ******************************************************************************
   * @file    stm32f10x_uart.h
-  * @author  MCD Application Team USART
+  * @author  Makt
   * @version V3.5.0
-  * @date    11-March-2011
-  * @brief   main 函数头文件
+  * @date    2016-04-04
+  * @brief   串口头文件
   *
   ******************************************************************************
   * @attention
@@ -29,3 +29,4 @@ void Get_Flag(void);
 void SystemReset(void);
 
 #endif /* __UART1_H */
+/************************* (C) COPYRIGHT 2016  END OF FILE **********************/ 

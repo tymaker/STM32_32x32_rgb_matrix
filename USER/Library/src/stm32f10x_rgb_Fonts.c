@@ -4,14 +4,16 @@
   * @author  Makt
   * @version V1.0
   * @date    2016-04-04
-  * @brief   新的RGB 点阵显示 程序
+  * @brief   字体文件
   ******************************************************************************
   * @attention
   *
+	* original public domain font source:
+	* http://www.opensource.apple.com/source/X11fonts/X11fonts-14/font-misc-misc/font-misc-misc-1.1.2/8x13.bdf
+	*
+	* 字体头文件
   ******************************************************************************
   */
-	// original public domain font source:
-	// http://www.opensource.apple.com/source/X11fonts/X11fonts-14/font-misc-misc/font-misc-misc-1.1.2/8x13.bdf
 
 #include "stm32f10x_rgb_Fonts.h"
 

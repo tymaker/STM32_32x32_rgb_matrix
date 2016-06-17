@@ -1,10 +1,10 @@
 /**
   ******************************************************************************
   * @file    stm32f10x_rgb_systick.h
-  * @author  MCD Application Team
+  * @author  Makt
   * @version V3.5.0
   * @date    04-April-2016
-  * @brief   main 函数头文件
+  * @brief   延时 函数头文件
   *
   ******************************************************************************
   * @attention
@@ -26,3 +26,4 @@ void TimingDelay_Decrement(void);
 void delay_interupt(void);
 
 #endif /* __SYSTICK_H */
+/******************* (C) COPYRIGHT 2016 *****END OF FILE****/

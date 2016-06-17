@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file    stm32f10x_rgb_err.h
-  * @author  MCD Application Team
+  * @author  Makt
   * @version V3.5.0
   * @date    04-April-2016
   * @brief   stm32f10x_rgb_err.h 函数头文件

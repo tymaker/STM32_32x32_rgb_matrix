@@ -4,7 +4,7 @@
   * @author  fire
   * @version V2.0
   * @date    2013-xx-xx
-  * @brief   STM32 RGB点阵显示程序
+  * @brief   STM32 RGB点阵延时头文件
   ******************************************************************************
   * @attention
   *
@@ -95,4 +95,4 @@ void delay_interupt(void)
     TimingDelay--;
   }
 }
-/******************* (C) COPYRIGHT 2011 野火嵌入式开发工作室 *****END OF FILE****/
+/******************* (C) COPYRIGHT 2016 *****END OF FILE****/

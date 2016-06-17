@@ -1,10 +1,10 @@
 /**
   ******************************************************************************
-  * @file    main.h
-  * @author  MCD Application Team
+  * @file    flash.c
+  * @author  Makt
   * @version V3.5.0
   * @date    04-April-2016
-  * @brief   spi flash 函数头文件
+  * @brief   spi flash 功能文件
   *
   ******************************************************************************
   * @attention
