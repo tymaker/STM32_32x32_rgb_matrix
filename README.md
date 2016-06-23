@@ -2,8 +2,10 @@ STM32F103 驱动 32*32 RGB 点阵显示屏
 
 Overview
 --------
-	stm32f103驱动 32*32 RGB点阵显示屏程序
-	Makt 天宇科技  更多详情见博客http://makt.top
+ * stm32f103驱动 32*32 RGB点阵显示屏程序
+ * 24位全彩驱动
+
+ * Makt 天宇科技  更多详情见[我的博客](http://makt.top "http://Makt.top")  
 
 
 
@@ -24,9 +26,9 @@ Connection
  *  LED_R | PC12
  *  LED_G | PC8
  *  LED_B | PC9
- *
+ 
  *  DHT11 | PA8
- *
+ 
  *  GPIO1 | PB6
  *  GPIO2 | PB7
 
@@ -78,7 +80,6 @@ Running
  * 清屏
 	ClearBuff(0,1024);
 	
- * 
 
 
 硬件资源
