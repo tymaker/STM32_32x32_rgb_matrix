@@ -29,10 +29,10 @@
  *  LED_B | PC9
  *
  *
- *  DHT11 | PA8
- *
- *  GPIO1 | PB6
- *  GPIO2 | PB7
+	 *  DHT11 | PA8
+	 *
+	 *  GPIO1 | PB6
+	 *  GPIO2 | PB7
  * 
  */
  

@@ -7,14 +7,46 @@
   * @brief   Maktrix 点阵显示程序
   ******************************************************************************
   * @attention
-  *
+  * 连线参见 matrix_config.h 配置文件
+	* 用到资源：ADC 用作产生随机数
+	* 
+	* 按键：按住按键，开机会进入自检程序
+	* 			正常启动模式下按按键会切换显示模式
   ******************************************************************************
   */
 
 #include "main.h"
 
+//const char text[] = "www.makt.top";
 
-//char text[] = "www.makt.top";
+/*void Disp_zh(const char *p)
+{
+	u16 num_zh = GET_ARRAY_LEN(text);
+	char a[2];
+	u8 i;
+	if(num_zh / 4 != 0){
+		u16 a = num_zh % 4;
+		num_zh = num_zh + a;
+	}
+	printf("%d字符长度",num_zh);
+	for(i=0;i<num_zh;i+=8){
+		ClearBuff(0,1023);
+		a[0] = p[i+0];
+		a[1] = p[i+1];
+		draw_hanzi(0,0,0x00ffffff,a);
+		a[0] = p[i+2];
+		a[1] = p[i+3];
+		draw_hanzi(16,0,0x00ffffff,a);
+		a[0] = p[i+4];
+		a[1] = p[i+5];
+		draw_hanzi(0,16,0x00ffffff,a);
+		a[0] = p[i+6];
+		a[1] = p[i+7];
+		draw_hanzi(16,16,0x00ffffff,a);
+		delay(1000);
+	}
+	while(1);
+}*/
 
 void GPIO_Config()
 {
@@ -29,69 +61,6 @@ void GPIO_Config()
 	  GPIO_ResetBits(GPIOC,GPIO_Pin_7);
 }
 
-
-
-// Open Sign Mode
-void openSignMode() {
-
-    u8 textMode = 0;
-	  u32 bgColor = Color888(0,30,30);
-    fillScreen(bgColor);
-
-    // Setup for scrolling mode
-    setScrollMode(wrapForward);
-    setScrollSpeed(10);
-    setScrollFont(font6x10);
-    setScrollColor(COLOR_GREEN);
-	  setScrollXY(22);
-	  //setScrollbgColor(0x00003030);
-    scrollText(OPEN_MSG, -1);
-
-    setFont(font8x13);
-
-
-    while (1) {
-
-        // First clear the string area
-			  ClearBuff(0,1024);
-        drawString(0, 3, bgColor, "OPEN");
-        switch (textMode) {
-
-        case 0:
-					  //ClearBuff(0,1024);
-            drawString(0, 3, COLOR_WHITE, "O");
-            break;
-
-        case 1:
-					  //ClearBuff(0,1024);
-            drawString(0, 3, COLOR_WHITE, "OP");
-            break;
-
-        case 2:
-					  //ClearBuff(0,1024);
-            drawString(0, 3, COLOR_WHITE, "OPE");
-            break;
-
-        case 3:
-					  //ClearBuff(0,1024);
-            drawString(0, 3, COLOR_WHITE, "OPEN");
-            break;
-
-        case 4:
-					  //ClearBuff(0,1024);
-            drawString(0, 3, bgColor, "OPEN");
-            break;
-        }
-        textMode++;
-        if (textMode >= 5) {
-            textMode = 0;
-        }
-
-        //swapBuffers();
-        Delay_us(100);
-				
-    }
-}
 
 
 void System_Init(void)
@@ -168,8 +137,6 @@ int main(void)
 	System_Init();
   delay(1000);
 	ClearBuff(0,1024);
-	//openSignMode();
-	//ClearBuff(0,1024);
 
 	while(1)
 	{

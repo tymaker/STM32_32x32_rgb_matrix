@@ -13,12 +13,7 @@
 
 #include "stm32f10x_rgb_dht11.h"
 
-/*
- * 函数名：DHT11_GPIO_Config
- * 描述  ：配置DHT11用到的I/O口
- * 输入  ：无
- * 输出  ：无
- */
+
 void DHT11_GPIO_Config(void)
 {
 	/*定义一个GPIO_InitTypeDef类型的结构体*/
@@ -39,7 +34,7 @@ void DHT11_GPIO_Config(void)
 	/*调用库函数，初始化DHT11_PORT*/
   	GPIO_Init(DHT11_PORT, &GPIO_InitStructure);		  
 
-	/* 拉高GPIOB10	*/
+	/* 拉高 DHT11_PORT	*/
 	GPIO_SetBits(DHT11_PORT, GPIO_Pin_8);	 
 }
 

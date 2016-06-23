@@ -75,8 +75,8 @@ u8 Lcd_TimeX(unsigned char circle_x,unsigned char Length,unsigned char Angle);
 u8 Lcd_TimeY(unsigned char circle_y,unsigned char Length,unsigned char Angle);
 void init_Point_Clock(void);
 void Display_Pointer(void);
+void openSignMode(void);
 void Display_Demo(void);
-
 
 #endif /* __STM32F10x_RGB_APPLICTION_H */
 

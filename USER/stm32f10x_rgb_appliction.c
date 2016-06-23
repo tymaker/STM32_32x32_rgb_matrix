@@ -571,7 +571,67 @@ void Display_Pointer()
 	}
 }
 
+// Open Sign Mode
+void openSignMode() {
 
+    u8 textMode = 0;
+	  u32 bgColor = Color888(0,30,30);
+    fillScreen(bgColor);
+
+    // Setup for scrolling mode
+    setScrollMode(wrapForward);
+    setScrollSpeed(10);
+    setScrollFont(font6x10);
+    setScrollColor(COLOR_GREEN);
+	  setScrollXY(22);
+	  //setScrollbgColor(0x00003030);
+    scrollText(OPEN_MSG, -1);
+
+    setFont(font8x13);
+
+
+    while (1) {
+
+        // First clear the string area
+			  ClearBuff(0,1024);
+        drawString(0, 3, bgColor, "OPEN");
+        switch (textMode) {
+
+        case 0:
+					  //ClearBuff(0,1024);
+            drawString(0, 3, COLOR_WHITE, "O");
+            break;
+
+        case 1:
+					  //ClearBuff(0,1024);
+            drawString(0, 3, COLOR_WHITE, "OP");
+            break;
+
+        case 2:
+					  //ClearBuff(0,1024);
+            drawString(0, 3, COLOR_WHITE, "OPE");
+            break;
+
+        case 3:
+					  //ClearBuff(0,1024);
+            drawString(0, 3, COLOR_WHITE, "OPEN");
+            break;
+
+        case 4:
+					  //ClearBuff(0,1024);
+            drawString(0, 3, bgColor, "OPEN");
+            break;
+        }
+        textMode++;
+        if (textMode >= 5) {
+            textMode = 0;
+        }
+
+        //swapBuffers();
+        Delay_us(100);
+				
+    }
+}
 
 void Display_Demo(void)
 {
