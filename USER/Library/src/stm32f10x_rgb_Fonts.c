@@ -5586,7 +5586,7 @@ const struct bitmap_font apple6x10 = {
 
 
 // character bitmap for each encoding
-static const unsigned char __apple8x13_bitmap__[] = {
+const unsigned char __apple8x13_bitmap__[] = {
 //  32 $20 'space'
 //	width 8, bbx 0, bby -2, bbw 8, bbh 13
 	________,

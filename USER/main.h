@@ -41,11 +41,7 @@
 #define  BufferSize (countof(Tx_Buffer)-1)  //获取数组大小
 #define  Read_BufferSize 128
 
-#define  FLASH_WriteAddress     0x0000
-#define  FLASH_ReadAddress      FLASH_WriteAddress
-#define  FLASH_SectorToErase    FLASH_WriteAddress
-#define  sFLASH_ID              0xEF3015
-#define  SPI_FLASH_NUM          4                //显示页数，当到达时，重新开始计数 字数  要
+
 
 /**************** I2C ****************************/
 #define EEP_Firstpage      0x00   //i2c 地址
@@ -58,7 +54,6 @@ extern u32 Timing;
 extern bitmap_font *font;
 
 extern u8 Control;
-
 DHT11_Data_TypeDef DHT11_Data;    //温度湿度缓冲
 
 void System_Init(void);

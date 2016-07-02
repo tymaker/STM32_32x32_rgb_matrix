@@ -31,13 +31,20 @@
 #define RIGHT 2
 #define GET_ARRAY_LEN(array) (sizeof(array) / sizeof(array[0]))
 
-/* exact-width signed integer types */
-typedef u32 rgb24;
 
 extern const bitmap_font apple3x5;
 extern const bitmap_font apple5x7;
 extern const bitmap_font apple6x10;
 extern const bitmap_font apple8x13;
+/* exact-width signed integer types */
+typedef u32 rgb24;
+
+typedef enum rotationDegrees {
+		rotation0,
+		rotation90,
+	  rotation180,
+		rotation270
+} rotationDegrees;
 
 typedef enum fontChoices {
     font3x5,
@@ -74,6 +81,8 @@ void Show_Time(void);                                    //显示时间
 void Show_Number_Print_16_8(u8, u8, int16_t);
 void Display_Clear_Cache(u8,u8);                         //清除缓存区
 void Show_Ascii_Print(u8, u8, char *);*/
+void drawPixel(s8 x, s8 y, u32 Color);
+void ClearBuff(u16 num1, u16 num2);
 void setFont(fontChoices newFont);
 void drawChar(u8 x, u8 y, u32 Color, char text);
 void draw_hanzi(u8 x, u8 y, u32 Color, char *);

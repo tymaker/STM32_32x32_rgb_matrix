@@ -16,14 +16,17 @@
 #ifndef __APPLICTION_H
 #define	__APPLICTION_H
 
+#include <string.h>
+
 #include "stm32f10x_rgb_matrix.h"
 #include "stm32f10x_rgb_gfx.h"
 #include "stm32f10x_rgb_dht11.h"
 #include "stm32f10x_rgb_adc.h"
 #include "stm32f10x_rgb_ColorHSV.h"
 #include <math.h>
-
-
+#include "stm32f10x_rgb_adc.h"
+#include "stm32f10x_rgb_uart.h"
+#include "stm32f10x_rgb_image.h"
 
 // Analog Clock Attributes
 #define NUMERICS_COLOR   Color888(120, 120, 120)
@@ -46,6 +49,8 @@ extern u8 hour,min,sec,w_month,w_date,week;//小时，分钟，秒，全局变量
 extern u8 Display_PWM[MATRIX_MODULE*MATRIX_HEIGHT*2][3];
 
 extern u8 Control;
+extern u8 IMAGE[32*32][3];
+extern u8 gImage_a[32*32][3];
 
 uint8_t scale_col(int val, int lo, int hi);
 void Rotate(int x, int y, float angle,
@@ -77,6 +82,9 @@ void init_Point_Clock(void);
 void Display_Pointer(void);
 void openSignMode(void);
 void Display_Demo(void);
+void show_Image(void);
+void show_PWM(void);
+
 
 #endif /* __STM32F10x_RGB_APPLICTION_H */
 

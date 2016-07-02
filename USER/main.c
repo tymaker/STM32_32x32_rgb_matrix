@@ -17,6 +17,7 @@
 
 #include "main.h"
 
+
 //const char text[] = "www.makt.top";
 
 /*void Disp_zh(const char *p)
@@ -111,7 +112,7 @@ void System_Init(void)
 	USART2_Config(ENABLE,115200);        //初始化USART2
 	TIM2_Configuration(DISABLE,250,36000);  //2000 是1s 
 	TIM3_Configuration(ENABLE);   //初始化定时器3 
-	TIM4_Configuration(ENABLE);
+	TIM4_Configuration(DISABLE);
   if(GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_13)==0)
 	{
 		Matrix_Text();
@@ -135,15 +136,17 @@ int8_t demo(void)
 int main(void)
 {
 	System_Init();
-  delay(1000);
+	memcpy(Display_PWM,gImage_a,3072);
+  delay(2000);
 	ClearBuff(0,1024);
-
+	Display_Demo();
 	while(1)
 	{
+		  show_Image();
+			ClearBuff(0,1024);
 		  Run();
 			ClearBuff(0,1024);
 			radiatingLinesPattern();
-			//ShowTime();
 			ClearBuff(0,1024);
 			Display_Pointer();
 			ClearBuff(0,1024);
@@ -152,7 +155,10 @@ int main(void)
 			rotatingLinesPattern();
 			ClearBuff(0,1024);
 			fsin();
-			ClearBuff(0,1024);	
+			ClearBuff(0,1024);
+		  ShowTime();
+		  ClearBuff(0,1024);
+
 	}
 }
 

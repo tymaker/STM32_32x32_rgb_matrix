@@ -19,7 +19,7 @@
 #include "stm32f10x.h"
 #include "matrix_config.h"
 
-#define TIME_NUM 35   //定时器时间 2.5ms   5 400Hz   10 200Hz
+#define TIME_NUM  REFISH_70HZ   //定时器时间 2.5ms   5 400Hz   10 200Hz
 
 // Open and Closed Sign Messages
 #define OPEN_MSG   "Please Come In"

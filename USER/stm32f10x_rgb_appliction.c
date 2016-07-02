@@ -12,9 +12,7 @@
   */
   
 #include "stm32f10x_rgb_appliction.h"
-#include "stm32f10x_rgb_adc.h"
-#include "math.h"
-#include "stm32f10x_rgb_uart.h"
+
 
 uint8_t scale_col(int val, int lo, int hi) {
 	if (val < lo) return 0;
@@ -27,8 +25,8 @@ void Rotate(int x, int y, float angle,
 	*new_y = x * sinf(angle) + y * cosf(angle);
 }
 void Run() {
-	const s8 cent_x = 32 / 2;
-	const s8 cent_y = 32 / 2;
+	const s8 cent_x = MATRIX_MODULE / 2;
+	const s8 cent_y = MATRIX_MODULE / 2;
 
 	// The square to rotate (inner square + black frame) needs to cover the
 	// whole area, even if diagnoal. Thus, when rotating, the outer pixels from
@@ -47,7 +45,7 @@ void Run() {
 
 	while (1) {
 		s8 x,y;
-		//delay(15);
+		delay(15);
 		rotation %= 360;
 		for (x = min_rotate; x < max_rotate; ++x) {
 			for (y = min_rotate; y < max_rotate; ++y) {
@@ -312,57 +310,72 @@ void Matrix_Text(void)
 {
 	u8 i;
 	LED_BLUE_ON
-  delay(30);
+  delay(100);
 	LED_BLUE_OFF
-	delay(30);
+	delay(100);
 	LED_BLUE_ON
-  delay(30);
+  delay(100);
 	LED_BLUE_OFF
-  delay(30);
-	ClearBuff(0,1024);
+  delay(100);
+	LED_GREEN_ON
+	ClearBuff(0,1023);
 	setFont(font5x7);
 	delay(300);
 	//drawPixel(0, 0, Color888(255, 255, 255)); 
-	delay(100);
-	fillScreen(Color888(17, 17, 17));
-	delay(100);
-	drawRect(0, 0, 32, 32, Color888(255, 255, 0));
-	delay(100);
-  drawLine(0, 0, 31, 31, Color888(255, 0, 0));
-  drawLine(31, 0, 0, 31, Color888(255, 0, 0));
-	delay(100);
-	drawCircle(7, 7, 7, Color888(0, 0, 255));
-	delay(100);
-	fillCircle(23, 7, 7, Color888(255, 0, 255));
-	delay(100);
-	fillScreen(Color888(0, 0, 0));
-	ClearBuff(0,1024);
-	//fillScreen(0x00101010);
 	setFont(font5x7);
 	drawString(4,0,Color888(234,23,75),"STM32");
 	drawString(4,7,0x00ffffff," RGB ");
 	setFont(font3x5);
 	drawString(4,14,0x00FF4040,"Matrix");
-	delay(100);
-	ClearBuff(0,32*32);
-	for(i=0;i<4;i++)
+	drawString(4,20,0x00FF4040," test ");
+	delay(2000);
+	ClearBuff(0,1023);	
+	fillScreen(Color888(17, 17, 17));
+	delay(500);
+	drawRect(0, 0, 32, 32, Color888(255, 255, 0));
+	delay(500);
+  drawLine(0, 0, 31, 31, Color888(255, 0, 0));
+  drawLine(31, 0, 0, 31, Color888(255, 0, 0));
+	delay(500);
+	drawCircle(7, 7, 7, Color888(0, 0, 255));
+	delay(500);
+	fillCircle(23, 7, 7, Color888(255, 0, 255));
+	delay(500);
+	fillScreen(Color888(0, 0, 0));
+	ClearBuff(0,1023);
+	for(i=0;i<2;i++)
 	{
-		delay(10);
+		delay(500);
 		LED_GREEN_ON
 		fillScreen(COLOR_RED);
-		delay(50);
-		ClearBuff(0,1024);
+		delay(500);
+		ClearBuff(0,1023);
 		fillScreen(COLOR_GREEN);
-		delay(50);
-		ClearBuff(0,1024);
+		delay(500);
+		ClearBuff(0,1023);
 		fillScreen(COLOR_BLUE);
-		delay(50);
-		ClearBuff(0,1024);
+		delay(500);
+		ClearBuff(0,1023);
 		LED_GREEN_OFF
 	}
-	fillScreen(0x00ffffff);
-  while(1){
+	for(i=0;i<255;i+=5){
+		ClearBuff(0,1024);
+		fillScreen(Color888(i,0,0));
+		delay(200);
 	}
+	for(i=0;i<255;i+=5){
+		ClearBuff(0,1024);
+		fillScreen(Color888(0,i,0));
+		delay(200);
+	}
+	for(i=0;i<255;i+=5){
+		ClearBuff(0,1024);
+		fillScreen(Color888(0,0,i));
+		delay(200);
+	}
+	fillScreen(0x00ffffff);
+	LED_GREEN_OFF
+  while(1);
 }
 
 // Time and Temperature Display Mode
@@ -479,7 +492,7 @@ void fsin()
 		b = sin(a);
 		x1 = 5*a;
 		y1 = 16-(5*b+0.5);
-		drawPixel(x1, y1, Color888(255, 255, 255)); 
+		drawPixel(x1, y1, Color888(255, 0, 0)); 
 	}
 	while(1){
 		if(checkForTermination())
@@ -641,6 +654,39 @@ void Display_Demo(void)
 	{
 		for(b=0;b<3;b++){
 		  Display_PWM[a][b] = a/4;
+		}
+	}
+}
+
+void show_Image()
+{
+  while(1){
+	  //memcpy(Display_PWM,IMAGE,3072);
+		//delay(1000);
+		memcpy(Display_PWM,gImage_a,3072);
+		//delay(1000);
+		if(checkForTermination())
+			return;
+	}
+}
+
+void show_PWM(){
+  u8 a;
+	while(1){
+		for(a=0;a<255;a+=5){
+			ClearBuff(0,1024);
+			fillScreen(Color888(a,0,0));
+			delay(200);
+		}
+		for(a=0;a<255;a+=5){
+			ClearBuff(0,1024);
+			fillScreen(Color888(0,a,0));
+			delay(200);
+		}
+		for(a=0;a<255;a+=5){
+			ClearBuff(0,1024);
+			fillScreen(Color888(0,0,a));
+			delay(200);
 		}
 	}
 }

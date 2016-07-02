@@ -89,6 +89,11 @@
 #define MATRIX_SIZE     MATRIX_WIDTH*MATRIX_HEIGHT
 
 
+#define REFISH_60HZ    55  //60.6Hz  6.90ms  16.5ms
+#define REFISH_70HZ    48  //69.4Hz  4.80ms  14.4ms
+#define REFISH_90HZ    35  //95.2Hz  0.98ms  10.5ms
+
+
 #define LED_RED_ON     LED_PORT->BRR  = LED_R;  //GPIO_ResetBits(LED_PORT, LED_R);
 #define LED_RED_OFF    LED_PORT->BSRR = LED_R;  //GPIO_SetBits(LED_PORT, LED_R);
 #define LED_GREEN_ON   LED_PORT->BRR  = LED_G;  //LED_GREEN_ON

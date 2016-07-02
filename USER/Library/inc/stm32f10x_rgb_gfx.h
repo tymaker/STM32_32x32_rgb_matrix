@@ -34,7 +34,6 @@
 #endif
 
 s8 _abs(s8);
-void drawPixel(s8,s8,u32);
 
 void drawLine(s8,s8,s8,s8,u32);
 
@@ -63,8 +62,6 @@ void fillTriangle(s8 x0, s8 y0, s8 x1, s8 y1, s8 x2, s8 y2, u32 Color);
 void drawRoundRect(s8 x0, s8 y0, s8 w, s8 h,	s8 radius, u32 Color);
 
 void fillRoundRect(s8 x0, s8 y0, s8 w, s8 h,	s8 radius, u32 Color);
-
-void ClearBuff(u16 num1, u16 num2);
 
 void fillScreen(u32 Color);
 

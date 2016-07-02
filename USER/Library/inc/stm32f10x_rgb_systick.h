@@ -18,6 +18,7 @@
 #include "stm32f10x.h"
 #include "matrix_config.h"
 #include "stm32f10x_rgb_uart.h"
+#include "stm32f10x_rgb_init.h"
 
 void SysTick_Init(void);
 void Delay_us(__IO u32 nTime);

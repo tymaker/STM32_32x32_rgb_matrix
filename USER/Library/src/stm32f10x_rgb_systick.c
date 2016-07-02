@@ -61,10 +61,13 @@ void Delay_us(__IO u32 nTime)
 }
 
 void delay(__IO u32 nTime)
-{ 
+{
+	TIM4_Configuration(ENABLE);
   TimingDelay = nTime;
 
   while(TimingDelay != 0);
+	TIM4_Configuration(DISABLE);
+
 }
 
 /*

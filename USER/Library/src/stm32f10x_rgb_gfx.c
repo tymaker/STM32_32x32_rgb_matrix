@@ -13,26 +13,13 @@
   
 #include <stm32f10x_rgb_gfx.h>
 
-extern u8 Display_PWM[MATRIX_MODULE*MATRIX_HEIGHT*2][3];
 
 s8 _abs(s8 n)
 {
 return n * ( (n>>8<<1) +1);
 }
 
-void drawPixel(s8 x, s8 y, u32 Color)
-{
-  //if(Color>0x00ffffff)return ;
-	if((x>(MATRIX_MODULE-1))||(y>(MATRIX_MODULE-1)))return ;
-	Display_PWM[y*32+x][2] |= Color;
-	Display_PWM[y*32+x][1] |= Color>>8;
-	Display_PWM[y*32+x][0] |= Color>>16;
-  if(Color==0x00){
-		Display_PWM[y*32+x][2] = 0x00;
-		Display_PWM[y*32+x][1] = 0x00;
-		Display_PWM[y*32+x][0] = 0x00;
-	};
-}
+
 
 
 // Bresenham's algorithm - thx wikpedia
@@ -326,15 +313,6 @@ void fillRoundRect(s8 x, s8 y, s8 w, s8 h, s8 r, u32 Color) {
   fillCircleHelper(x+r    , y+r, r, 2, h-2*r-1, Color);
 }
 
-void ClearBuff(u16 num1, u16 num2)
-{
-  for(;num1<num2;num1++)
-	{
-		Display_PWM[num1][0]=0x00;
-		Display_PWM[num1][1]=0x00;
-		Display_PWM[num1][2]=0x00;
-	}
-}
 
 void fillScreen(u32 Color) {
   fillRect(0, 0, MATRIX_MODULE, MATRIX_MODULE, Color);
