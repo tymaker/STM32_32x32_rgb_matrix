@@ -13,6 +13,9 @@
   
 #include "stm32f10x_rgb_appliction.h"
 
+extern const u8 Image6[];
+extern const u8 Image5[];
+
 
 uint8_t scale_col(int val, int lo, int hi) {
 	if (val < lo) return 0;
@@ -426,6 +429,27 @@ void timeAndTempMode() {
     }
 }
 
+void TempMode(void){
+	char text[8],text1[8];
+	DHT11_Data_TypeDef DHT11_Data;    //ÎÂ¶ÈÊª¶È»º³å
+	drawImage(0,0,COLOR_YELLOW,Image5);
+	drawImage(0,16,COLOR_RED,Image6);
+	while(1){
+		TIM3_Configuration(DISABLE);
+		if( Read_DHT11(&DHT11_Data)==SUCCESS){
+			sprintf(text,"%d.%dF",DHT11_Data.temp_int,DHT11_Data.temp_deci);
+			sprintf(text1,"%d.%dH",DHT11_Data.humi_int,DHT11_Data.humi_deci);
+		}
+		TIM3_Configuration(ENABLE);
+		setFont(font5x7);
+		drawString(8,5,COLOR_YELLOW,text);
+		drawString(8,21,COLOR_YELLOW,text1);
+		//delay(500);
+		drawString(8,5,0x00,"");
+		drawString(8,21,0x00,"");
+
+	}
+}
 
 void ShowTime(void)
 {
@@ -442,7 +466,7 @@ void ShowTime(void)
     setScrollXY(12); 
 	  while(1){
 			RTC_Get();
-			sprintf(text,"    %d:%d:%d  %d-%d",hour,min,sec,w_month,w_date);
+			sprintf(text,"      %d:%d:%d  %d-%d",hour,min,sec,w_month,w_date);
 			scrollText(text, 1);
 			delay(100);
 			if(checkForTermination()){
@@ -689,5 +713,226 @@ void show_PWM(){
 			delay(200);
 		}
 	}
+}
+
+// Create a HSV color
+rgb24 createHSVColor(float hue, float saturation,  float value) {
+
+    float r, g, b;
+    rgb24 color;
+
+    hsvToRGB(hue, saturation, value, &r, &g, &b);
+
+    color = (u32)(r * MAX_COLOR_VALUE)<<16;
+    color = color | ((u32)(g * MAX_COLOR_VALUE) <<8); 
+    color = color | (u32)(b * MAX_COLOR_VALUE) ;
+
+    return color;
+}
+
+void welcomePattern() {
+
+    rgb24 color;
+    float hueAngle = 0.0;
+		int i;
+    // Write welcome message
+    setScrollColor(COLOR_WHITE);
+    setScrollMode(wrapForward);
+    setScrollSpeed(10);
+    setScrollFont(font6x10);
+    setScrollOffsetFromEdge(11);
+    scrollText("Welcome  ~#%*%#~", 1);
+
+    while (1) {
+
+        // Get a color for the line
+        color = createHSVColor(hueAngle, 1.0, 1.0);
+        hueAngle += 15.0;
+        if (hueAngle >= 360.0) {
+            hueAngle = 0.0;
+        }
+
+        // Draw diagonal lines on left
+        for (i = 0; i < 32; i++) {
+					  drawLine(0, i, i, 31, 0x00);
+            drawLine(0, i, i, 31, color);
+            //swapBuffers();
+            delay(50);
+        }
+
+        // Get a color for the line
+        color = createHSVColor(hueAngle, 1.0, 1.0);
+        hueAngle += 15.0;
+        if (hueAngle >= 360.0) {
+            hueAngle = 0.0;
+        }
+        // Draw diagonal lines on bottom
+        for (i = 0; i < 32; i++) {
+					  drawLine(i, 31, 31, 31 - i, 0x00);
+            drawLine(i, 31, 31, 31 - i, color);
+            //swapBuffers();
+            delay(50);
+        }
+
+        // Get a color for the line
+        color = createHSVColor(hueAngle, 1.0, 1.0);
+        hueAngle += 15.0;
+        if (hueAngle >= 360.0) {
+            hueAngle = 0.0;
+        }
+
+        // Draw diagonal lines on right
+        for (i = 0; i < 32; i++) {
+					  drawLine(31, 31 - i, 31 - i, 0, 0x00);
+            drawLine(31, 31 - i, 31 - i, 0, color);
+            //swapBuffers();
+            delay(50);
+        }
+
+        // Get a color for the line
+        color = createHSVColor(hueAngle, 1.0, 1.0);
+        hueAngle += 15.0;
+        if (hueAngle >= 360.0) {
+            hueAngle = 0.0;
+        }
+        // Draw diagonal lines on top
+        for (i = 0; i < 32; i++) {
+					  drawLine(31 - i, 0, 0, i, 0x00);
+            drawLine(31 - i, 0, 0, i, color);
+            //swapBuffers();
+            delay(50);
+        }
+
+        // Test for termination
+        if (checkForTermination()) {
+            return;
+        }
+    }
+}
+
+void randomCirclesPattern() {
+
+    float hue, val;
+    rgb24 color;
+    int xc, yc, radius, count;
+
+    while (1) {
+        // Clear the screen
+        fillScreen(COLOR_BLACK);
+
+        // Pick a random clear count
+        count = random(10, 50);
+
+        while (count-- >= 0) {
+
+            hue = random(0,360);
+            val = ((float) random(30, 100)) / 100.0;
+            color = createHSVColor(hue, 1.0,  val);
+
+            xc = random(1,32);
+            yc = random(1,32);
+            radius = random(1,16);
+            drawCircle(xc, yc, radius, 0x00);
+            drawCircle(xc, yc, radius, color);
+
+            //swapBuffers();
+
+            // Check for termination
+            if (checkForTermination()) {
+                return;
+            }
+            delay(250);
+        }
+    }
+}
+
+void wwssaabb(void){
+	
+	u8 X,Y;
+	u8 r,g,b;
+	while(1){
+  // Draw top half
+  for (X=0; X < 32; X++) {      
+    for (Y=0; Y < 8; Y++) {  
+			drawPixel(X, Y, 0x00);
+      drawPixel(X, Y, Color888(r, g, b));
+      r++;
+      if (r == 8) {
+        r = 0;
+        g++;
+        if (g == 8) {
+          g = 0;
+          b++;
+        }
+      }
+    }
+  }
+
+  // Draw bottom half
+  for (X=0; X < 32; X++) {      
+    for (Y=8; Y < 16; Y++) {  
+			drawPixel(X, Y, 0x00);
+      drawPixel(X, Y, Color888(r, g, b));
+      r++;
+      if (r == 8) {
+        r = 0;
+        g++;
+        if (g == 8) {
+          g = 0;
+          b++;
+        }
+      }
+    }
+  }
+	}
+}
+
+void bba(void){
+  // Bounce three balls around
+	u8 i;
+	int8_t ball[3][4] = {
+		{  3,  0,  1,  1 }, // Initial X,Y pos & velocity for 3 bouncy balls
+		{ 17, 15,  1, -1 },
+		{ 27,  4, -1,  1 }
+	};
+	
+	u32 ballcolor[3] = {
+  0x000000ff, // Green=1
+  0x0000ff00, // Blue=1
+  0x00ff0000  // Red=1
+	};
+  while(1){
+		for(i=0; i<3; i++) {
+			// Draw 'ball'
+			fillCircle(ball[i][0], ball[i][1], 4, ballcolor[i]);
+			delay(10);
+			fillCircle(ball[i][0], ball[i][1], 4, 0x00);
+			// Update X, Y position
+			ball[i][0] += ball[i][2];
+			ball[i][1] += ball[i][3];
+			// Bounce off edges
+			if((ball[i][0] == 0) || (ball[i][0] == (32 - 1)))
+				ball[i][2] *= -1;
+			if((ball[i][1] == 0) || (ball[i][1] == (16 - 1)))
+				ball[i][3] *= -1;
+		}
+	}
+}
+
+void aabbcc(void){
+	ClearBuff(0,1023);
+	setFont(font6x10);
+	drawChar( 0,0,Color888(7,0,0),'1');
+	drawChar( 6,0,Color888(7,4,0),'6');
+	drawChar(12,0,Color888(7,7,0),'x');
+	drawChar(18,0,Color888(4,7,0),'3');
+	drawChar(24,0,Color888(0,7,0),'2');
+	
+	drawChar( 0,10,Color888(0,7,7),'*');
+	drawChar( 6,10,Color888(0,4,7),'R');
+	drawChar(12,10,Color888(0,0,7),'G');
+	drawChar(18,10,Color888(4,0,7),'B');
+	drawChar(24,10,Color888(7,0,4),'*');
+	while(1);
 }
 /*********************************************END OF FILE**********************/

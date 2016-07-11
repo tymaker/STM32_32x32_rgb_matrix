@@ -29,9 +29,10 @@
 #include "stm32f10x_rgb_i2c.h"
 #include "stm32f10x_rgb_dht11.h"
 #include "stm32f10x_rgb_gfx.h"
-#include "stm32f10x_rgb_color.h"
+#include "stm32f10x_rgb_Colors.h"
 #include "stm32f10x_rgb_Appliction.h"
 #include "stm32f10x_rgb_adc.h"
+#include "stm32f10x_rgb_Types.h"
 
 /****************************  SPI  **************************/
 /* 获取缓冲区的长度 */

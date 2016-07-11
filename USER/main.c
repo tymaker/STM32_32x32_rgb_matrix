@@ -16,6 +16,7 @@
   */
 
 #include "main.h"
+#include "VolumeBars.h"
 
 
 //const char text[] = "www.makt.top";
@@ -132,6 +133,48 @@ int8_t demo(void)
 	  return a;
 }*/
 
+void abc(void)
+{
+		#define A 1
+    double x,y;
+	  u8 x1,y1;
+    printf("»­ÐÄº¯Êý");
+    for(y=-4;y<=0;y+=0.3)
+    {
+			for(x=-2;x<=4;x+=0.2)
+				if(fabs(sqrt(x*x+y*y)-A*sin(2*atan(y/x)))<=1 ||fabs(sqrt(x*x+y*y)-A*sin(2*atan(-y/x)))<=1){
+					drawPixel(x1,y1,0x00ff);
+				  x1++;
+					printf("*");
+				}
+				else{
+					printf(" ");
+				  drawPixel(x1,y1,0x00);
+					x1++;
+				}
+			printf("\n");
+			y1++;
+			x1=0;
+    }
+    for(y=-1;y<=0;y+=0.2)
+    {
+			for(x=-2;x<=4;x+=0.2)
+				if(fabs(y)-0.65*x*x>=0.2){
+					drawPixel(x1,y1,0x00ff);
+					x1++;
+					printf("*");
+				}
+				else {
+					printf(" ");
+				  drawPixel(x1,y1,0x00);
+					x1++;
+				}
+				printf("\n");
+				y1++;
+				x1=0;
+    }
+   while(1);
+}
 
 int main(void)
 {
@@ -139,7 +182,13 @@ int main(void)
 	memcpy(Display_PWM,gImage_a,3072);
   delay(2000);
 	ClearBuff(0,1024);
-	Display_Demo();
+	//Display_Demo();
+	//InitBufInArray();
+	//GetPowerMag();
+	//Printf();
+	//abc();
+	//aabbcc();
+	//VolumeBars_run();
 	while(1)
 	{
 		  show_Image();
@@ -154,10 +203,15 @@ int main(void)
 			ClearBuff(0,1024);
 			rotatingLinesPattern();
 			ClearBuff(0,1024);
-			fsin();
+			//fsin();
+			//ClearBuff(0,1024);
+		  randomCirclesPattern();
 			ClearBuff(0,1024);
-		  ShowTime();
+			welcomePattern();
 		  ClearBuff(0,1024);
+  		ShowTime();
+		  ClearBuff(0,1024);
+
 
 	}
 }

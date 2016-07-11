@@ -17,6 +17,10 @@
 #ifndef __COLOR_H
 #define	__COLOR_H
 
+#ifndef Color888
+#define Color888(r, g, b)  (((u32)r << 16) | ((u32)g << 8) | (u32)b)
+#endif
+
 #define COLOR_BLACK   Color888(  0,   0,   0)
 #define COLOR_RED     Color888(255,   0,   0)
 #define COLOR_GREEN   Color888(  0, 255,   0)

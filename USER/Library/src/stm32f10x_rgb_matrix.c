@@ -46,7 +46,7 @@ u8 Display_PWM[MATRIX_MODULE*MATRIX_HEIGHT*2][3]={
 
 bitmap_font *font = (bitmap_font *) &apple3x5;
 const bitmap_font *scrollFont = &apple5x7;
-static rotationDegrees rotation_Degrees = rotation180;
+static rotationDegrees rotation_Degrees = rotation0;
 
 // Scrolling
 ScrollMode scrollmode = bounceForward;
@@ -597,6 +597,9 @@ void setScrollXY(u8 row) {
 		Scroll_Y = 0;
 }
 
+void setScrollOffsetFromEdge(u8 row){
+	setScrollXY(row);
+}
 void Scrolshowtime(void)
 {
 	u8 i;
@@ -628,12 +631,23 @@ void Scrolshowtime(void)
   textWidth = (textlen * scrollFont->Width) - 1;
 }
 
-void drawImage(u8 x, u8 y, s8 w, s8 h, u32 Color, u8 *addres){
-	u8 a,b;
-	for(a=0;a<w;a++){
-		for(b=0;b<h;b++){
-			drawPixel(x+a,y+b,Color);
+void drawImage(u8 x, u8 y, u32 Color, const u8 *addres){
+	u8 b,c,d;
+	//a = a / 8;
+
+	for(b = 0;b < addres[1];b++){
+		for(d = 0;d < addres[0]/8; d++){
+			u8 num = addres[b*(addres[0]/8)+d+2];
+			for(c = 0; c < 8; c++){
+				if((num & 0x80) == 0x80)
+					drawPixel(d*8+c+x,b+y,Color);
+				num=num<<1;
+				//if(num & (1<<c))
+				//	drawPixel(c+x,b+y,Color);
+			}
 		}
 	}
 }
+
+
 /*********************************************END OF FILE**********************/

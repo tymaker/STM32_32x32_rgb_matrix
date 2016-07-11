@@ -19,6 +19,8 @@
 #include "stm32f10x.h"
 #include "matrix_config.h"
 #include "stm32f10x_rgb_matrix.h"
+#include "stm32f10x_rgb_Colors.h"
+
 //#include <math.h> 
 
 #ifndef min
@@ -29,9 +31,7 @@
 #define _swap_int8_t(a, b) { int8_t t = a; a = b; b = t; }
 #endif
 
-#ifndef Color888
-#define Color888(r, g, b)  (((u32)r << 16) | ((u32)g << 8) | (u32)b)
-#endif
+
 
 s8 _abs(s8);
 

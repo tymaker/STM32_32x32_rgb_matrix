@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Lib\startup\arm;..\Lib\cmsis;..\Lib\src;..\Lib\inc;..\USER;..\USER\Library\inc;..\USER\Library\src</IncludePath>
+              <IncludePath>..\Lib\startup\arm;..\Lib\cmsis;..\Lib\src;..\Lib\inc;..\USER;..\USER\Library\inc;..\USER\Library\src;..\USER\FFT_Library</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -559,14 +559,14 @@
           <GroupName>USER</GroupName>
           <Files>
             <File>
-              <FileName>stm32f10x_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\USER\stm32f10x_conf.h</FilePath>
-            </File>
-            <File>
               <FileName>matrix_config.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\USER\Library\inc\matrix_config.h</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\stm32f10x_conf.h</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_it.c</FileName>
@@ -582,6 +582,11 @@
               <FileName>stm32f10x_rgb_appliction.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\stm32f10x_rgb_appliction.c</FilePath>
+            </File>
+            <File>
+              <FileName>VolumeBars.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\VolumeBars.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -667,6 +672,31 @@
               <FileName>README.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\Doc\README.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FFT_Library</GroupName>
+          <Files>
+            <File>
+              <FileName>cr4_fft_64_stm32.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\USER\FFT_Library\cr4_fft_64_stm32.s</FilePath>
+            </File>
+            <File>
+              <FileName>stm32_dsp.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\FFT_Library\stm32_dsp.h</FilePath>
+            </File>
+            <File>
+              <FileName>table_fft.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\FFT_Library\table_fft.h</FilePath>
+            </File>
+            <File>
+              <FileName>cr4_fft_256_stm32.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\USER\FFT_Library\cr4_fft_256_stm32.s</FilePath>
             </File>
           </Files>
         </Group>

@@ -72,6 +72,7 @@ void rotatingLinesPattern(void);
 void randomTrianglesPattern(void);
 void Matrix_Text(void);
 void timeAndTempMode(void);
+void TempMode(void);
 void ShowTime(void);
 void drawClockNumerics(void);
 void Batter(u8 num);
@@ -84,7 +85,12 @@ void openSignMode(void);
 void Display_Demo(void);
 void show_Image(void);
 void show_PWM(void);
-
+rgb24 createHSVColor(float hue, float saturation,  float value);
+void welcomePattern(void);
+void randomCirclesPattern(void);
+void wwssaabb(void);
+void bba(void);
+void aabbcc(void);
 
 #endif /* __STM32F10x_RGB_APPLICTION_H */
 

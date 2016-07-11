@@ -25,7 +25,7 @@
 #include "stm32f10x_rgb_uart.h"
 #include "stm32f10x_rgb_gfx.h"
 #include "stm32f10x_rgb_spi_flash.h"
-#include "stm32f10x_rgb_color.h"
+#include "stm32f10x_rgb_Colors.h"
 
 #define LIFE 1
 #define RIGHT 2
@@ -99,7 +99,8 @@ void setScrollFont(fontChoices newFont);
 void setScrollColor(u32 newColor);
 void setScrollbgColor(u32 newColor);
 void setScrollXY(u8 row);
+void setScrollOffsetFromEdge(u8 row);
 void Scrolshowtime(void);
-void drawImage(u8 x, u8 y, s8 w, s8 h, u32 Color, u8 *addres);
+void drawImage(u8 x, u8 y, u32 Color, const u8 *addres);
 
 #endif /* __MATRIX_H */
