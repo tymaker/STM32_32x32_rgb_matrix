@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Lib\startup\arm;..\Lib\cmsis;..\Lib\src;..\Lib\inc;..\USER;..\USER\Library\inc;..\USER\Library\src;..\USER\FFT_Library</IncludePath>
+              <IncludePath>..\Lib\startup\arm;..\Lib\cmsis;..\Lib\src;..\Lib\inc;..\USER;..\USER\Library\inc;..\USER\Library\src;..\USER\FFT_Library;..\USER\matrixman-master</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -697,6 +697,16 @@
               <FileName>cr4_fft_256_stm32.s</FileName>
               <FileType>2</FileType>
               <FilePath>..\USER\FFT_Library\cr4_fft_256_stm32.s</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>master</GroupName>
+          <Files>
+            <File>
+              <FileName>matrixman-gamefile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\matrixman-master\matrixman-gamefile.c</FilePath>
             </File>
           </Files>
         </Group>

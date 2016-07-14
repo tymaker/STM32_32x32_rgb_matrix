@@ -17,7 +17,7 @@
 
 #include "main.h"
 #include "VolumeBars.h"
-
+#include "matrixman-gamefile.h"
 
 //const char text[] = "www.makt.top";
 
@@ -182,6 +182,7 @@ int main(void)
 	memcpy(Display_PWM,gImage_a,3072);
   delay(2000);
 	ClearBuff(0,1024);
+	//PWR_EnterSTOPMode(PWR_Regulator_LowPower, PWR_STOPEntry_WFI);
 	//Display_Demo();
 	//InitBufInArray();
 	//GetPowerMag();
@@ -189,6 +190,8 @@ int main(void)
 	//abc();
 	//aabbcc();
 	//VolumeBars_run();
+	//playMatrixman();
+	//aabbcc();
 	while(1)
 	{
 		  show_Image();

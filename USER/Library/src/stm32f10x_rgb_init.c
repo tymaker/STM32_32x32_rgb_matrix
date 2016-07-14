@@ -148,12 +148,13 @@ void TIM2_Configuration(u8 EN,u16 TIME_period, u16 TIME_perescaler)
     TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
     TIM_ClearFlag(TIM2, TIM_FLAG_Update);							    		/* 清除溢出中断标志 */
     TIM_ITConfig(TIM2,TIM_IT_Update,ENABLE);
-    if(EN==ENABLE)
       TIM_Cmd(TIM2, ENABLE);
-    else
-			TIM_Cmd(TIM2, DISABLE);
+			//TIM_Cmd(TIM2, DISABLE);
 		/* 开启时钟 */
-//    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2 , DISABLE);		/*先关闭等待使用*/    
+    if(EN==ENABLE)
+			RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2 , ENABLE);		/*先关闭等待使用*/    
+    else
+			RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2 , DISABLE);		/*先关闭等待使用*/    
 }
 
 

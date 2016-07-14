@@ -378,7 +378,8 @@ void Matrix_Text(void)
 	}
 	fillScreen(0x00ffffff);
 	LED_GREEN_OFF
-  while(1);
+  delay(3000);
+	SystemReset();
 }
 
 // Time and Temperature Display Mode
@@ -922,8 +923,8 @@ void bba(void){
 void aabbcc(void){
 	ClearBuff(0,1023);
 	setFont(font6x10);
-	drawChar( 0,0,Color888(7,0,0),'1');
-	drawChar( 6,0,Color888(7,4,0),'6');
+	drawChar( 0,0,Color888(7,0,0),'3');
+	drawChar( 6,0,Color888(7,4,0),'2');
 	drawChar(12,0,Color888(7,7,0),'x');
 	drawChar(18,0,Color888(4,7,0),'3');
 	drawChar(24,0,Color888(0,7,0),'2');
