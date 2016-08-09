@@ -15,7 +15,7 @@
 
 void Err(void)
 {
-	  LED_RED_ON
+	  LED_RED_ON;
     while(1);
 }
 

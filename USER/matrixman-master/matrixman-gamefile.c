@@ -24,6 +24,7 @@
 #include "player.h"
 #include "stm32f10x_rgb_matrix.h"
 #include "stm32f10x_rgb_adc.h"
+#include "stm32f10x_rgb_appliction.h"
 
 uint32_t dotTracker[36];
 
@@ -53,7 +54,7 @@ uint16_t globalDotCounter;  // after death, release ghosts on dots eaten: 7/17/3
 uint32_t score;         //Keeps score
 #define EATENEMYSCOREBASE   200                 //The least you'll get for eating enemy
 uint16_t eatNextEnemyScore = EATENEMYSCOREBASE; //Doubles with each enemy eaten
-
+//extern u8 aaa;
 //enemyMode types
 #define SCATTER 0
 #define CHASE 1
@@ -945,16 +946,14 @@ int playMatrixman()
             setupLevel();
             gameRunning = TRUE;
         }
-
+			if(checkForTermination()){
+				ClearBuff(0,1023);
+				break;
+			}
    }
-
     displayClose();
-
     return 0;
 }
-
-
-
 
 void displayPixel(uint8_t x, uint8_t y, char color) {
 	  drawPixel(x,y-2,0x00);
@@ -985,6 +984,16 @@ void displayLatch(void) {
 }
 
 uint8_t getControl(void) {
+	/*u8 aa;
+	if(aaa == 'w')
+		aa=0;
+	else if(aaa == 's')
+		aa=1;
+	else if(aaa == 'a')
+		aa=2;
+	else if(aaa == 'd')
+		aa=3;
+	return aa;*/
 	return random(1,3);
 }
 

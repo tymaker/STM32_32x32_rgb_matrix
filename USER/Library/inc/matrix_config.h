@@ -77,10 +77,10 @@
 #define MTX_POE		GPIO_Pin_7   //GPIOC
 #define MTX_PCLK	GPIO_Pin_10  //GPIOB
 
-#define DISP_ON         MTX_PORTc->BRR = MTX_POE;
-#define DISP_OFF        MTX_PORTc->BSRR = MTX_POE;
-#define CLK_TOGGLE      MTX_PORT->BSRR = MTX_PCLK; MTX_PORT->BRR = MTX_PCLK;
-#define STROBE          MTX_PORT->BSRR = MTX_PSTB; MTX_PORT->BRR = MTX_PSTB;
+#define DISP_ON         MTX_PORTc->BRR = MTX_POE
+#define DISP_OFF        MTX_PORTc->BSRR = MTX_POE
+#define CLK_TOGGLE      MTX_PORT->BSRR = MTX_PCLK; MTX_PORT->BRR = MTX_PCLK
+#define STROBE          MTX_PORT->BSRR = MTX_PSTB; MTX_PORT->BRR = MTX_PSTB
 
 #define MATRIX_WIDTH    64
 #define MATRIX_HEIGHT   16
@@ -94,13 +94,17 @@
 #define REFISH_90HZ    35  //95.2Hz  0.98ms  10.5ms
 
 
-#define LED_RED_ON     LED_PORT->BRR  = LED_R;  //GPIO_ResetBits(LED_PORT, LED_R);
-#define LED_RED_OFF    LED_PORT->BSRR = LED_R;  //GPIO_SetBits(LED_PORT, LED_R);
-#define LED_GREEN_ON   LED_PORT->BRR  = LED_G;  //LED_GREEN_ON
-#define LED_GREEN_OFF  LED_PORT->BSRR = LED_G;  //LED_GREEN
-#define LED_BLUE_ON    LED_PORT->BRR  = LED_B;
-#define LED_BLUE_OFF   LED_PORT->BSRR = LED_B;
+#define LED_RED_ON     LED_PORT->BRR  = LED_R  //GPIO_ResetBits(LED_PORT, LED_R);
+#define LED_RED_OFF    LED_PORT->BSRR = LED_R  //GPIO_SetBits(LED_PORT, LED_R);
+#define LED_GREEN_ON   LED_PORT->BRR  = LED_G  //LED_GREEN_ON
+#define LED_GREEN_OFF  LED_PORT->BSRR = LED_G  //LED_GREEN
+#define LED_BLUE_ON    LED_PORT->BRR  = LED_B
+#define LED_BLUE_OFF   LED_PORT->BSRR = LED_B
 
 #define DISP_ZISE(a)   ((sizeof(a) / sizeof(*(a)))-1) //ª∫¥Ê¥Û–°
+
+//#define FREQUENCY   72
+#define FREQUENCY   120000000
+//#define FREQUENCY   72
 
 #endif

@@ -39,8 +39,8 @@ void setupRGBMatrixPorts(void)
 	GPIO_Init(MTX_PORT, &GPIO_InitStructure);
 
   /*  GPIO */
-	GPIO_InitStructure.GPIO_Pin = GPIO_6 | GPIO_7;	
-	GPIO_Init(GPIO_PORT, &GPIO_InitStructure);
+	//GPIO_InitStructure.GPIO_Pin = GPIO_6 | GPIO_7;	
+	//GPIO_Init(GPIO_PORT, &GPIO_InitStructure);
 	
   GPIO_InitStructure.GPIO_Pin = MTX_PR0 | MTX_PB0 | MTX_PR1 | MTX_PB1 | MTX_PA | MTX_PC  | MTX_PB | MTX_POE;	
 	GPIO_Init(LED_PORT, &GPIO_InitStructure);
@@ -131,7 +131,14 @@ void NVIC_Configuration(void)
   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;
   NVIC_InitStructure.NVIC_IRQChannelCmd = DISABLE;
   NVIC_Init(&NVIC_InitStructure);
-
+	
+	/* Enable the EXIT6 Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+	
 }
 
 /*TIM_Period--1000   TIM_Prescaler--71 -->中断周期为1ms*/

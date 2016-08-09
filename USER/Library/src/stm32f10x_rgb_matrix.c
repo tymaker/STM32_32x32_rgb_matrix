@@ -46,7 +46,7 @@ u8 Display_PWM[MATRIX_MODULE*MATRIX_HEIGHT*2][3]={
 
 bitmap_font *font = (bitmap_font *) &apple3x5;
 const bitmap_font *scrollFont = &apple5x7;
-static rotationDegrees rotation_Degrees = rotation0;
+static rotationDegrees rotation_Degrees = rotation0; //方向
 
 // Scrolling
 ScrollMode scrollmode = bounceForward;
@@ -77,7 +77,7 @@ extern const unsigned char __apple8x13_bitmap__[];
 
 //const u16 waits[] = { 5, 10, 20, 40, 80, 160, 320, 640, 1280, 2560 };
 //const u16 waits[] =   { 1, 5, 20, 40, 80, 160, 280, 640, 980};
-const u16 waits[] =   { 1, 2, 6, 24, 80, 160, 340, 760, 2048};
+const u16 waits[] =   { 1, 2, 6, 24, 80, 160, 340, 760, 3500};
 const u16 waitb[] =   { 0, 1, 4, 32, 128, 256, 512, 1024, 2048};
 /**
  * Displays the buffer on the display using binary encoding (PWM equivalent).
@@ -107,6 +107,16 @@ const u16 waitb[] =   { 0, 1, 4, 32, 128, 256, 512, 1024, 2048};
 //	#endif
 //}
 
+/**
+  * @brief  点阵屏初始化函数
+  * @param  None
+  * @retval None
+  */
+void Matrix_Init(rotationDegrees rotation,u8 enable){
+	setupRGBMatrixPorts();
+	rotation_Degrees = rotation;
+	TIM3_Configuration(enable);
+}
 /**
   * @brief  定时器中断函数
   * @param  None
@@ -203,7 +213,7 @@ void display_PWM(void) {
 							Display_Cache1[a][1] = Display_Cache1[a][1] <<1;
 							Display_Cache1[a][2] = Display_Cache1[a][2] <<1;
 						}
-						showLine(waits[num]);  //8(5): 2.12 0.38
+						showLine(waitb[num]);  //8(5): 2.12 0.38
 				}
 		}
 
@@ -263,7 +273,7 @@ void display_PWM(void) {
 											MTX_PORTc->BSRR = MTX_PB1;
 										else
 											MTX_PORTc->BRR  = MTX_PB1;
-										CLK_TOGGLE
+										CLK_TOGGLE;
 								}
 						}
 						for(a=0;a<64;a++)
@@ -649,5 +659,7 @@ void drawImage(u8 x, u8 y, u32 Color, const u8 *addres){
 	}
 }
 
-
+void Display_Enable(u8 ENABLE){
+	TIM3_Configuration(ENABLE);
+}
 /*********************************************END OF FILE**********************/

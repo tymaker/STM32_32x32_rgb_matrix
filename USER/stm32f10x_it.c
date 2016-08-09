@@ -28,8 +28,8 @@
 
 extern char g_DatRev[Max_UART_String];
 extern u8 g_DatRev_num,UART_FLAG;
-extern u16 g_DatRev_num_uart2; //usart2计数缓存
-extern u8 Display_PWM[MATRIX_MODULE*MATRIX_HEIGHT*2][3];
+//extern u16 g_DatRev_num_uart2; //usart2计数缓存
+//extern u8 Display_PWM[MATRIX_MODULE*MATRIX_HEIGHT*2][3];
 extern u8 Control;
 //unsigned char Trg; 
 //unsigned char Cont; 
@@ -182,6 +182,15 @@ void EXTI15_10_IRQHandler(void)
   }
 }
 
+void EXTI9_5_IRQHandler(void){
+	u8 num;
+  if(EXTI_GetITStatus(EXTI_Line7) != RESET) //确保是否产生了EXTI Line中断
+  {
+		num=hongwai();
+		EXTI_ClearITPendingBit(EXTI_Line7);     //清除中断标志位
+	}
+	//printf("\nnum:%d\n",num+4);
+}
 
 /**
   * @}
@@ -213,7 +222,7 @@ void USART1_IRQHandler(void)
 		USART_ClearFlag(USART1,USART_FLAG_TC);                     //发送完成标志位
 }
 
-void USART2_IRQHandler(void) 
+/*void USART2_IRQHandler(void) 
 {
 		if (USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)//判断是否发生接受中断
 		{
@@ -227,7 +236,7 @@ void USART2_IRQHandler(void)
 			USART_ClearITPendingBit(USART2, USART_IT_RXNE);              //清除中断标志    
 		}
 		USART_ClearFlag(USART2,USART_FLAG_TC);                     //发送完成标志位
-}
+}*/
 
 /*
  * 定时器2中断服务

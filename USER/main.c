@@ -53,23 +53,64 @@
 void GPIO_Config()
 {
     GPIO_InitTypeDef GPIO_InitStructure;
-	  RCC_APB2PeriphClockCmd( RCC_APB2Periph_GPIOC,ENABLE);
+		EXTI_InitTypeDef EXTI_InitStructure;
 	  
 	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
-	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	  GPIO_Init(GPIOC,&GPIO_InitStructure);
+	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+	  //GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	  GPIO_Init(GPIOB,&GPIO_InitStructure);
 	  //GPIO_SetBits(GPIOC,GPIO_Pin_7);
-	  GPIO_ResetBits(GPIOC,GPIO_Pin_7);
+
+		/* config the extiline(PB6) clock and AFIO clock */
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);//RCC_APB2Periph_GPIOB | 
+		/* config the NVIC(PB6) */
+		// NVIC_Configuration();
+		/* EXTI line(PB6) mode config */
+		GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource7); 
+		EXTI_InitStructure.EXTI_Line = EXTI_Line7;
+		EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+		EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling; //下降沿中断
+		EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+		EXTI_Init(&EXTI_InitStructure);
 }
 
 
+__asm int aaprivate(u32 usec)
+{
+     ALIGN
+     PUSH.W {r1}  //2时钟周期
+     MOV r1,#20  //1时钟周期
+     MUL r0,r1  //1时钟周期
+     SUB r0,#3  //1时钟周期
+loop
+     SUBS r0,#1   //1时钟周期
+     BNE loop   //如果跳转则为3个周期，不跳则只有1个周期
+     POP {r1}   //2时钟周期
+     BX lr    //3个时钟周期
+                  //总共所用周期为(usec*4)-4,此处减4主要用于抵消调用此函数的消耗时钟周期（传参1时钟，BLX跳转3时钟）
+}
+void aa(void){
+	while(1){
+	GPIO6_LOW;
+	aaprivate(100);
+	GPIO6_HIGH;
+	aaprivate(100);
+	GPIO6_LOW;
+	aaprivate(100);
+	GPIO6_HIGH;
+	aaprivate(100);
+	GPIO6_LOW;
+	aaprivate(100);
+	GPIO6_HIGH;
+	aaprivate(100);
+	}
+}
 
 void System_Init(void)
 {
 //	SystemInit();
   setupRGBMatrixPorts(); //初始化GPIO
-	LED_BLUE_ON
+	LED_BLUE_ON;
 	SysTick_Init();  //初始化SysTick
 	I2C_Init_GPIO();  //初始化I2C引脚
 	DHT11_GPIO_Config();	/*初始化DTT11的引脚*/
@@ -119,7 +160,7 @@ void System_Init(void)
 		Matrix_Text();
 	}
   EXTI_Config();
-	LED_BLUE_OFF
+	LED_BLUE_OFF;
 }
 
 /*
@@ -179,8 +220,9 @@ void abc(void)
 int main(void)
 {
 	System_Init();
+	GPIO_Config();
 	memcpy(Display_PWM,gImage_a,3072);
-  delay(2000);
+  delay(5000);
 	ClearBuff(0,1024);
 	//PWR_EnterSTOPMode(PWR_Regulator_LowPower, PWR_STOPEntry_WFI);
 	//Display_Demo();
@@ -190,32 +232,23 @@ int main(void)
 	//abc();
 	//aabbcc();
 	//VolumeBars_run();
-	//playMatrixman();
-	//aabbcc();
+
 	while(1)
 	{
-		  show_Image();
-			ClearBuff(0,1024);
+		  //show_Image(IMAGE);
+			TempMode();
 		  Run();
-			ClearBuff(0,1024);
 			radiatingLinesPattern();
-			ClearBuff(0,1024);
 			Display_Pointer();
-			ClearBuff(0,1024);
 			analogClockMode();
-			ClearBuff(0,1024);
 			rotatingLinesPattern();
-			ClearBuff(0,1024);
 			//fsin();
 			//ClearBuff(0,1024);
 		  randomCirclesPattern();
-			ClearBuff(0,1024);
 			welcomePattern();
-		  ClearBuff(0,1024);
   		ShowTime();
-		  ClearBuff(0,1024);
-
-
+			VolumeBars_run();
+			playMatrixman();
 	}
 }
 

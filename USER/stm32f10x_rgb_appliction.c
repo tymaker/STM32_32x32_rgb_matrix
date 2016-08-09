@@ -70,8 +70,10 @@ void Run() {
 			}
 		}
 		++rotation;
-		if(checkForTermination())
-			return;
+		if(checkForTermination()){
+			ClearBuff(0,1024);
+			break;
+		}
 	}
 }
 
@@ -174,9 +176,9 @@ void analogClockMode() {
 
         // See if user has aborted
         if (checkForTermination()) {
-            return;
+						ClearBuff(0,1024);
+            break;
         }
-
         delay(200);
 				_drawSecIndicator(sec,COLOR_BLACK);
 				_drawMinHand(min,COLOR_BLACK);
@@ -262,6 +264,7 @@ void radiatingLinesPattern(void) {
         colorIndex += 2;
         // Check for termination
         if (checkForTermination()) {
+						ClearBuff(0,1024);
             return;
         }
     }
@@ -300,7 +303,8 @@ void rotatingLinesPattern() {
 		}
 		// Check for termination
 		if (checkForTermination()) {
-				return;
+			  ClearBuff(0,1024);
+				break;
 		}
 	}
 }
@@ -312,15 +316,15 @@ void rotatingLinesPattern() {
 void Matrix_Text(void)
 {
 	u8 i;
-	LED_BLUE_ON
+	LED_BLUE_ON;
   delay(100);
-	LED_BLUE_OFF
+	LED_BLUE_OFF;
 	delay(100);
-	LED_BLUE_ON
+	LED_BLUE_ON;
   delay(100);
-	LED_BLUE_OFF
+	LED_BLUE_OFF;
   delay(100);
-	LED_GREEN_ON
+	LED_GREEN_ON;
 	ClearBuff(0,1023);
 	setFont(font5x7);
 	delay(300);
@@ -349,7 +353,7 @@ void Matrix_Text(void)
 	for(i=0;i<2;i++)
 	{
 		delay(500);
-		LED_GREEN_ON
+		LED_GREEN_ON;
 		fillScreen(COLOR_RED);
 		delay(500);
 		ClearBuff(0,1023);
@@ -359,7 +363,7 @@ void Matrix_Text(void)
 		fillScreen(COLOR_BLUE);
 		delay(500);
 		ClearBuff(0,1023);
-		LED_GREEN_OFF
+		LED_GREEN_OFF;
 	}
 	for(i=0;i<255;i+=5){
 		ClearBuff(0,1024);
@@ -377,7 +381,7 @@ void Matrix_Text(void)
 		delay(200);
 	}
 	fillScreen(0x00ffffff);
-	LED_GREEN_OFF
+	LED_GREEN_OFF;
   delay(3000);
 	SystemReset();
 }
@@ -438,23 +442,33 @@ void TempMode(void){
 	while(1){
 		TIM3_Configuration(DISABLE);
 		if( Read_DHT11(&DHT11_Data)==SUCCESS){
-			sprintf(text,"%d.%dF",DHT11_Data.temp_int,DHT11_Data.temp_deci);
+			sprintf(text,"%d.%dC",DHT11_Data.temp_int,DHT11_Data.temp_deci);
 			sprintf(text1,"%d.%dH",DHT11_Data.humi_int,DHT11_Data.humi_deci);
+		}
+		else{
+			sprintf(text,"Error");
+			sprintf(text1,"Error");
 		}
 		TIM3_Configuration(ENABLE);
 		setFont(font5x7);
-		drawString(8,5,COLOR_YELLOW,text);
-		drawString(8,21,COLOR_YELLOW,text1);
-		//delay(500);
-		drawString(8,5,0x00,"");
-		drawString(8,21,0x00,"");
+		drawString(8,5,Color888(80,80,80),text);
+		drawString(8,21,Color888(80,80,80),text1);
+		delay(2000);
+		drawString(8,5,0x00,text);
+		drawString(8,21,0x00,text1);
 
+		//drawString(8,5,0x00,"       ");
+		//drawString(8,21,0x00,"      ");
+		if(checkForTermination()){
+			ClearBuff(0,1024);
+			break;
+		}
 	}
 }
 
 void ShowTime(void)
 {
-		char text[10];
+		char text[20];
     rgb24 fgColor = Color888(0, 202, 202);
     //rgb24 tempColor = Color888(9, 255, 202);
     ClearBuff(0,1024);
@@ -467,13 +481,14 @@ void ShowTime(void)
     setScrollXY(12); 
 	  while(1){
 			RTC_Get();
-			sprintf(text,"      %d:%d:%d  %d-%d",hour,min,sec,w_month,w_date);
+			sprintf(text,"      %02d:%02d:%02d  %02d-%0d",hour,min,sec,w_month,w_date);
 			scrollText(text, 1);
 			delay(100);
 			if(checkForTermination()){
 				setScrollMode(off);
 				scrollText("",1);
-				return;
+				ClearBuff(0,1024);
+				break;
 			}
 		}
 }
@@ -604,8 +619,10 @@ void Display_Pointer()
 		drawLine(Lcd_TimeX(16,12,sec),Lcd_TimeY(16,12,sec),16,16,0x00);  //secÖ¸Õë
 		drawLine(Lcd_TimeX(16,8,min),Lcd_TimeY(16,8,min),16,16,0x00);
 		drawLine(Lcd_TimeX(16,6,min/10+5*(hour%12)),Lcd_TimeY(16,6,min/10+5*(hour%12)),16,16,0x00);  
-		if(checkForTermination())
-			return;
+		if(checkForTermination()){
+			ClearBuff(0,1024);
+			break;
+		}
 	}
 }
 
@@ -683,16 +700,14 @@ void Display_Demo(void)
 	}
 }
 
-void show_Image()
+void show_Image(const u8 *image)
 {
-  while(1){
-	  //memcpy(Display_PWM,IMAGE,3072);
-		//delay(1000);
-		memcpy(Display_PWM,gImage_a,3072);
-		//delay(1000);
-		if(checkForTermination())
-			return;
-	}
+		u8 i, j;
+		for(j=0;j<32;j++){
+			for(i=0;i<32;i++){
+				//drawPixel(i,j,Color888(IMAGE[j*32+i],IMAGE[j*32+i+1],IMAGE[j*32+i+2]));
+			drawPixel(i,j,((u32)image[j*32+i] << 16) | ((u32)image[j*32+i+1]<<8) | ((u32)image[j*32+i+2]));}
+		}
 }
 
 void show_PWM(){
@@ -806,7 +821,8 @@ void welcomePattern() {
 
         // Test for termination
         if (checkForTermination()) {
-            return;
+					  ClearBuff(0,1024);
+            break;
         }
     }
 }
@@ -840,6 +856,7 @@ void randomCirclesPattern() {
 
             // Check for termination
             if (checkForTermination()) {
+							  ClearBuff(0,1024);
                 return;
             }
             delay(250);
@@ -936,4 +953,6 @@ void aabbcc(void){
 	drawChar(24,10,Color888(7,0,4),'*');
 	while(1);
 }
+
+
 /*********************************************END OF FILE**********************/

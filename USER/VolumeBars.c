@@ -18,7 +18,7 @@
 #include "VolumeBars.h"
 #include "stm32_dsp.h"
 #include "table_fft.h"
-
+#include "stm32f10x_rgb_appliction.h"
 
 const int width = 32;
 const int height_ = 32;
@@ -146,6 +146,12 @@ void VolumeBars_run() {
 	  }
 	  //usleep(delay_ms_ * 1000);
 		delay(50);
+		if(checkForTermination()){
+			setScrollMode(off);
+			scrollText("",1);
+			ClearBuff(0,1023);
+			return;
+		}
 	}
 }
 

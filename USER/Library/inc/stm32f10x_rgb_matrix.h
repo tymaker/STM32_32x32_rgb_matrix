@@ -64,6 +64,7 @@ typedef enum ScrollMode {
 
 extern u8 hour,min,sec,w_month,w_date,week;//小时，分钟，秒，全局变量
 
+void Matrix_Init(rotationDegrees rotation,u8 enable);  //初始化函数
 void Timer_Move_interrupt(void);
 void display_PWM(void);
 void setRow(u8);
@@ -102,5 +103,6 @@ void setScrollXY(u8 row);
 void setScrollOffsetFromEdge(u8 row);
 void Scrolshowtime(void);
 void drawImage(u8 x, u8 y, u32 Color, const u8 *addres);
+void Display_Enable(u8 ENABLE);
 
 #endif /* __MATRIX_H */

@@ -663,6 +663,11 @@
               <FileType>1</FileType>
               <FilePath>..\USER\Library\src\stm32f10x_rgb_image.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f10x_rgb_IR.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Library\src\stm32f10x_rgb_IR.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -83,7 +83,7 @@ void init_Point_Clock(void);
 void Display_Pointer(void);
 void openSignMode(void);
 void Display_Demo(void);
-void show_Image(void);
+void show_Image(const u8 *image);
 void show_PWM(void);
 rgb24 createHSVColor(float hue, float saturation,  float value);
 void welcomePattern(void);
@@ -91,6 +91,7 @@ void randomCirclesPattern(void);
 void wwssaabb(void);
 void bba(void);
 void aabbcc(void);
+void Show(void);
 
 #endif /* __STM32F10x_RGB_APPLICTION_H */
 

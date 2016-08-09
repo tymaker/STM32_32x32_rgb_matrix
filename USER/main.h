@@ -33,6 +33,7 @@
 #include "stm32f10x_rgb_Appliction.h"
 #include "stm32f10x_rgb_adc.h"
 #include "stm32f10x_rgb_Types.h"
+#include "stm32f10x_rgb_IR.h"
 
 /****************************  SPI  **************************/
 /* 获取缓冲区的长度 */

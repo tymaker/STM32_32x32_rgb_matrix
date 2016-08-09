@@ -55,7 +55,7 @@ void Delay_us(__IO u32 nTime)
    u16 i=0;  
    while(nTime--)
    {
-      i=12000;
+      i=13350;
       while(i--) ;    
    }
 }

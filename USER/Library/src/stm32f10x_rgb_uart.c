@@ -16,7 +16,8 @@
 
 char g_DatRev[Max_UART_String] = {0};  //USART缓冲
 u8 g_DatRev_num=0,UART_FLAG=0;  //计数 标志位  UART_FLAG = 0x01 为接受到字符串 0x02 为接受溢出
-u16 g_DatRev_num_uart2;   //usart2 计数缓存
+//u16 g_DatRev_num_uart2;   //usart2 计数缓存
+//u8 aaa;
 /*
  * 函数名：UART1_Config
  * 描述  ：UART1_Config 配置，工作模式配置  115200-8-N-1
@@ -278,14 +279,27 @@ void Get_Flag()
 						//SPI_FLASH_BulkErase();
 						printf("[OK] SPI_FLASH_BulkErase OK");
 				}
-				else if(strcmp1(g_DatRev,"AT+A"))
+				else if(strcmp1(g_DatRev,"AT+W\r\n"))
 				{
-						printf("OK");
+					  //aaa = 'w';
+				}
+				else if(strcmp1(g_DatRev,"AT+S\r\n"))
+				{
+					  //aaa = 's';
+				}
+				else if(strcmp1(g_DatRev,"AT+A\r\n"))
+				{
+					  //aaa = 'a';
+				}
+				else if(strcmp1(g_DatRev,"AT+D\r\n"))
+				{
+					  //aaa = 'd';
 				}
 				else if(strcmp1(g_DatRev,"AT+CLOSE\r\n"))
 				{
 						printf("[OK] CLOSE SYS\n");
 				}
+
 				//if(strcmp1(g_DatRev,"AT+HELP\r\n"))
 				else{
 						printf("***   System Help   ***\n");
